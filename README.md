@@ -6,6 +6,7 @@ A production-ready, self-hosted automation pipeline built using **n8n** running 
 
 ## 🏗️ System Architecture & Workflow
 
+![n8n Lead Automation Pipeline Layout](workflow-canvas.png)
 
 1. **Lead Generation:** A native n8n form collects customer submission metadata (`Name`, `Email`, `Company`).
 2. **AI Enrichment:** The pipeline passes the `Company` value to Google Gemini via API. The LLM conducts an immediate business analysis to extract industry vertical and intent data.
@@ -47,3 +48,15 @@ Access your canvas UI locally at `http://localhost:5678`.
 - **Zero Operating Cost:** Powered entirely via Docker self-hosting and generous cloud-free tiers (Google AI Studio & Meta Sandbox).
 - **Asynchronous Execution:** Replaces manual B2B research steps, saving up to 5 minutes of data aggregation per lead.
 - **High Extensibility:** Modular architecture allows swap-ins for alternative CRM paths (e.g., Salesforce, HubSpot) or local LLMs (e.g., Ollama running Llama 3).
+
+
+### 🐳 Advanced Deployment: Multi-Container Setup (Recommended)
+
+Instead of running an isolated container with an unstable local memory file, you can deploy a robust production-grade stack including a **PostgreSQL Database backend** for transaction history logging. 
+
+1. Ensure `docker-compose.yml` is in your working directory.
+2. Spin up the entire integrated ecosystem:
+   ```bash
+   docker compose up -d
+   ```
+3. Docker will automatically configure the networks, wait for PostgreSQL to pass its health checks, and launch n8n safely at `http://localhost:5678`.
